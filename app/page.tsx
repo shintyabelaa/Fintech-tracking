@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import { CardSection } from "./components/CardSection";
 
 export default function Home() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16">
-        <div className="p-3 border ">Take Control of Your Money</div>
+      <HeroSection />
+      <main className="flex flex-1 w-full flex-col px-32 py-16">
+        <CardSection />
       </main>
     </div>
   );
