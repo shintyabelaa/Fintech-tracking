@@ -11,8 +11,8 @@ import { ChartNoAxesColumn } from "lucide-react";
 
 export function CardSection() {
   return (
-    <div className="flex justify-between gap-2">
-      <Card size="sm" className="w-full rounded-md max-w-sm">
+    <div className="grid grid-cols-2 w-full gap-6">
+      {/* <Card size="sm" className="w-full rounded-md">
         <CardHeader>
           <CardTitle>
             <div className="flex items-center justify-between">
@@ -26,7 +26,7 @@ export function CardSection() {
         </CardHeader>
         <CardFooter>+12.5% from last month</CardFooter>
       </Card>
-      <Card size="sm" className="w-full rounded-md max-w-sm">
+      <Card size="sm" className="w-full rounded-md">
         <CardHeader>
           <CardTitle>
             <div className="flex items-center justify-between">
@@ -40,7 +40,7 @@ export function CardSection() {
         </CardHeader>
         <CardFooter>+12.5% from last month</CardFooter>
       </Card>
-      <Card size="sm" className="w-full rounded-md max-w-sm">
+      <Card size="sm" className="w-full rounded-md">
         <CardHeader>
           <CardTitle>
             <div className="flex items-center justify-between">
@@ -53,6 +53,62 @@ export function CardSection() {
           </CardDescription>
         </CardHeader>
         <CardFooter>+12.5% from last month</CardFooter>
+      </Card> */}
+      <Card size="sm" className="w-full rounded-md">
+        <CardHeader>
+          <ChartNoAxesColumn className="h-8 rounded-md bg-[#3b82f6]/20 text-[#3b82f6] p-2 w-8" />
+          <CardTitle>
+            <div className="flex items-center justify-between">
+              Smart Tracking
+            </div>
+          </CardTitle>
+          <CardDescription className="">
+            Automatically categories and tracks all your income and expenses in
+            one place, giving you a clear picture of your financial health.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      <Card size="sm" className="w-full rounded-md">
+        <CardHeader>
+          <ChartNoAxesColumn className="h-8 rounded-md bg-[#3b82f6]/20 text-[#3b82f6] p-2 w-8" />
+          <CardTitle>
+            <div className="flex items-center justify-between">
+              Smart Tracking
+            </div>
+          </CardTitle>
+          <CardDescription className="">
+            Automatically categories and tracks all your income and expenses in
+            one place, giving you a clear picture of your financial health.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      <Card size="sm" className="w-full rounded-md">
+        <CardHeader>
+          <ChartNoAxesColumn className="h-8 rounded-md bg-[#3b82f6]/20 text-[#3b82f6] p-2 w-8" />
+          <CardTitle>
+            <div className="flex items-center justify-between">
+              Smart Tracking
+            </div>
+          </CardTitle>
+          <CardDescription className="">
+            Automatically categories and tracks all your income and expenses in
+            one place, giving you a clear picture of your financial health.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      <Card size="sm" className="w-full rounded-md">
+        <CardHeader>
+          <ChartNoAxesColumn className="h-8 rounded-md bg-[#3b82f6]/20 text-[#3b82f6] p-2 w-8" />
+          <CardTitle>
+            <div className="flex items-center justify-between">
+              Smart Tracking
+            </div>
+          </CardTitle>
+          <CardDescription className="">
+            Automatically categories and tracks all your income and expenses in
+            one place, giving you a clear picture of your financial health.
+          </CardDescription>
+        </CardHeader>
       </Card>
     </div>
   );

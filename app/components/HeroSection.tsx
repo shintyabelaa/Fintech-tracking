@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { BadgeDollarSign } from "lucide-react";
+import { BadgeDollarSign, Dot } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <div className="flex flex-col min-h-screen px-32 py-32 gap-4 bg-linear-to-t from-[#c8f9fd] to-white p-8">
-      <div className="p-3 w-fit text-sm bg-[#c8f9fd] text-[#4970cc] font-semibold flex gap-2 items-center rounded-full ">
+      <div className="p-3 w-fit text-sm bg-[#c8 f9fd] text-[#4970cc] font-semibold flex gap-2 items-center rounded-full ">
         <BadgeDollarSign className="text-yellow-500" />
         Take Control of Your Money
       </div>
@@ -24,6 +24,21 @@ export default function HeroSection() {
           Start Tracking Free <ArrowRight className="text-white" />
         </Button>
         <Button variant="outline">Watch Demo</Button>
+      </div>
+
+      <div className="flex gpa-2 items-center">
+        <div className="flex gap-2">
+          <Dot className="text-yellow-700" />
+          No Credit Card Required
+        </div>
+        <div className="flex gap-2">
+          <Dot className="text-yellow-700" />
+          Free Forever Plan
+        </div>
+        <div className="flex gap-2">
+          <Dot className="text-yellow-700" />
+          Takes 2 minutes to Set Up
+        </div>
       </div>
     </div>
   );
