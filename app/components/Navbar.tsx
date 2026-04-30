@@ -4,10 +4,11 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="w-full border-b bg-white">
+    <nav className="sticky top-0 z-50 w-full border-b bg-white">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <div className="flex gap-2 items-center">
@@ -21,12 +22,12 @@ export default function Navbar() {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <a href="/" className="px-4 py-2">
+              <a href="#features" className="px-4 py-2">
                 Features
               </a>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <a href="/about" className="px-4 py-2">
+              <a href="#pricing" className="px-4 py-2">
                 Pricing
               </a>
             </NavigationMenuItem>
@@ -45,7 +46,9 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-2">
-          <Button variant="ghost">Login</Button>
+          <Link href="/login">
+            <Button variant="ghost">Login</Button>
+          </Link>
           <Button>Get Started</Button>
         </div>
       </div>
