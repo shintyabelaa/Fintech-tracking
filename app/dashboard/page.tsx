@@ -14,15 +14,19 @@ import { RecentTransactions } from "../components/dashboard/RecentTransactions";
 import { GoalsProgress } from "../components/dashboard/GoalsProgress";
 import { AccountsList } from "../components/dashboard/AccountsList";
 import { AddTransactionForm } from "../components/dashboard/TransactionForm";
+import { getTransactions } from "../services/transaction.service";
 
 export default function DashboardPage() {
     const { getToken } = useAuth()
     const [data, setData] = useState(null)
     const [open, setOpen] = useState(false)
-    useEffect(() => {
-        const fetchData = async () => {
+    const [transactions, setTransactions] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    const fetchDashboard = async () => {
+        try {
             const token = await getToken()
-            console.log("TOKEN:", token)
+
             const res = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/dashboard`,
                 {
@@ -33,11 +37,33 @@ export default function DashboardPage() {
             )
 
             const json = await res.json()
-            setData(json)
-        }
 
-        fetchData()
-    }, [])
+            setData(json)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+
+    const fetchTransactions = async () => {
+        try {
+            setLoading(true)
+
+            const data = await getTransactions()
+            console.log(data)
+            setTransactions(data)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchDashboard()
+        fetchTransactions()
+    }, [getToken])
+
 
     return (
         <SidebarProvider>
@@ -45,7 +71,7 @@ export default function DashboardPage() {
 
             <div className="flex flex-1 flex-col overflow-hidden">
                 <DashboardHeader onAddClick={() => setOpen(true)} />
-                <AddTransactionForm open={open} setOpen={setOpen} />
+                <AddTransactionForm open={open} setOpen={setOpen} onSuccess={fetchTransactions} />
                 <main className="flex-1 overflow-y-auto p-6">
                     <div className="mx-auto max-w-7xl space-y-6">
                         {/* Stats Cards */}
@@ -54,7 +80,7 @@ export default function DashboardPage() {
                         {/* Charts Row */}
                         <div className="grid gap-6 lg:grid-cols-5">
                             <div className="lg:col-span-3">
-                                <SpendingChart />
+                                <SpendingChart transactions={transactions} />
                             </div>
                             <div className="lg:col-span-2">
                                 <CategoryChart />
@@ -64,7 +90,10 @@ export default function DashboardPage() {
                         {/* Bottom Row */}
                         <div className="grid gap-6 lg:grid-cols-3">
                             <div className="lg:col-span-2">
-                                <RecentTransactions />
+                                <RecentTransactions
+                                    transactions={transactions}
+                                    loading={loading}
+                                />
                             </div>
                             <div className="space-y-6">
                                 <GoalsProgress />

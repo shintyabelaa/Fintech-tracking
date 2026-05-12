@@ -1,17 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { formatChartData } from "@/lib/utils"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
-const data = [
-    { month: "Jan", income: 6500, expenses: 4200 },
-    { month: "Feb", income: 7200, expenses: 3800 },
-    { month: "Mar", income: 6800, expenses: 4500 },
-    { month: "Apr", income: 7500, expenses: 4100 },
-    { month: "May", income: 8000, expenses: 3900 },
-    { month: "Jun", income: 7800, expenses: 4300 },
-    { month: "Jul", income: 8250, expenses: 3847 },
-]
+interface Props {
+    transactions: any[]
+}
 
-export function SpendingChart() {
+export function SpendingChart({
+    transactions,
+}: Props) {
+
+    const data = formatChartData(transactions)
+    console.log(data)
     return (
         <Card className="bg-card border-border">
             <CardHeader className="pb-2">
@@ -54,7 +54,7 @@ export function SpendingChart() {
                                 axisLine={false}
                                 tickLine={false}
                                 tick={{ fill: "oklch(0.65 0 0)", fontSize: 12 }}
-                                tickFormatter={(value) => `$${value / 1000}k`}
+                                tickFormatter={(value) => `Rp${value / 1000}k`}
                             />
                             <Tooltip
                                 contentStyle={{
@@ -63,7 +63,7 @@ export function SpendingChart() {
                                     borderRadius: "8px",
                                     color: "oklch(0.98 0 0)",
                                 }}
-                                formatter={(value: number) => [`$${value.toLocaleString()}`, ""]}
+                                formatter={(value: number) => [`Rp${value.toLocaleString()}`, ""]}
                             />
                             <Area
                                 type="monotone"

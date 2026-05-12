@@ -23,7 +23,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
+import { cn, formatCurrencyInput, parseCurrencyInput } from "@/lib/utils"
 import { format } from "date-fns"
 import {
     CalendarIcon,
@@ -47,19 +47,14 @@ import {
 } from '@/components/ui/dialog'
 import { Field, FieldLabel } from "@/components/ui/field"
 import { useAuth } from "@clerk/nextjs"
+import { getTransactions } from "@/app/services/transaction.service"
 
 /* ---------------- TYPES ---------------- */
 
 interface TransactionFormProps {
     open: boolean
     setOpen: (open: boolean) => void
-    onSubmit?: (transaction: {
-        type: "income" | "expense"
-        amount: number
-        category: string
-        date: Date
-        description: string
-    }) => void
+    onSuccess?: () => void
 }
 
 /* ---------------- DATA ---------------- */
@@ -84,7 +79,7 @@ const incomeCategories = [
 export function AddTransactionForm({
     open,
     setOpen,
-    onSubmit,
+    onSuccess,
 }: TransactionFormProps) {
 
     const [type, setType] = useState<"income" | "expense">("expense")
@@ -115,7 +110,7 @@ export function AddTransactionForm({
                     },
                     body: JSON.stringify({
                         type,
-                        amount: parseFloat(amount),
+                        amount: parseCurrencyInput(amount),
                         category,
                         date: date.toISOString(),
                         description,
@@ -123,25 +118,25 @@ export function AddTransactionForm({
                 }
             )
 
-            console.log(res)
 
             if (!res.ok) {
                 throw new Error("Failed to create transaction")
             }
 
-            const data = await res.json()
+            // const data = await res.json()
 
             // optional callback (update UI list)
-            onSubmit?.(data)
+            onSuccess?.()
 
             // reset
             setAmount("")
-            setCategory(null) // ✅ FIX (you were using "")
+            setCategory(null)
             setDescription("")
             setDate(new Date())
 
             // close modal
             setOpen(false)
+            await getTransactions()
 
         } catch (err) {
             console.error(err)
@@ -197,8 +192,8 @@ export function AddTransactionForm({
                     <Field className="max-w-sm">
                         <FieldLabel htmlFor="inline-start-input">Amount</FieldLabel>
                         <InputGroup>
-                            <InputGroupInput id="inline-start-input" type="number" value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
+                            <InputGroupInput id="inline-start-input" type="text" value={amount}
+                                onChange={(e) => setAmount(formatCurrencyInput(e.target.value))}
                                 required placeholder="0.00" />
                             <InputGroupAddon align="inline-start">
                                 <DollarSign className="text-muted-foreground" />
